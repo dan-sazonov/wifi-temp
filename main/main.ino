@@ -15,6 +15,7 @@ ESP8266WebServer server(80);
 DallasTemperature sensors(&oneWire);
 
 int temp;
+int max_temp;
 
 void setup() {
   Serial.begin(9600);
@@ -41,6 +42,7 @@ void loop() {
   // get the temp
   sensors.requestTemperatures();
   temp = sensors.getTempCByIndex(0) * 100;
+  if (temp >= max_temp) max_temp = temp;
   
   // update server
   server.handleClient();
@@ -71,7 +73,13 @@ String SendHTML() {
   ptr +=",";  
   ptr += (int)(temp % 100);
   ptr +=" °C</p>";
-  
+
+  ptr +="<p>Максимальная температура: ";
+  ptr += (int)((float)max_temp / 100.0);
+  ptr +=",";  
+  ptr += (int)(max_temp % 100);
+  ptr +=" °C</p>";
+    
   ptr +="</div>\n";
   ptr +="</body>\n";
   ptr +="</html>\n";
