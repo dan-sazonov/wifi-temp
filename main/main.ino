@@ -3,7 +3,7 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
 
-#define DS_PIN D3
+#define DS_PIN D8
 
 // for example, random values are set here. change to your own before starting:
 #define SSID "DSS WLAN S2" 
