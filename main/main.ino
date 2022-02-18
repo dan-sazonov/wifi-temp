@@ -16,6 +16,7 @@ DallasTemperature sensors(&oneWire);
 
 int temp;
 int max_temp;
+int last_temp;
 
 void setup() {
   Serial.begin(9600);
@@ -41,6 +42,7 @@ void setup() {
 void loop() {  
   // get the temp
   sensors.requestTemperatures();
+  last_temp = temp;
   temp = sensors.getTempCByIndex(0) * 100;
   if (temp >= max_temp) max_temp = temp;
 
@@ -82,7 +84,11 @@ String SendHTML() {
   ptr +=",";  
   ptr += (int)(max_temp % 100);
   ptr +=" °C</p>";
-    
+  
+  ptr +="<p><b>Дельта:</b> ";
+  ptr += (temp-last_temp);
+  ptr +="*10<sup>2</sup> °C</p>";
+
   ptr +="</div>\n";
   ptr +="</body>\n";
   ptr +="</html>\n";
