@@ -43,7 +43,7 @@ void loop() {
   sensors.requestTemperatures();
   temp = sensors.getTempCByIndex(0) * 100;
   if (temp >= max_temp) max_temp = temp;
-  
+
   // update server
   server.handleClient();
   delay(1000);
@@ -60,21 +60,24 @@ void handle_NotFound() {
 String SendHTML() {
   String ptr = "<!DOCTYPE html> <html lang=\"ru-RU\">\n";
   ptr +="<head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">\n";
+  ptr += "<meta http-equiv=\"refresh\" content=\"10\">";
   ptr += "<meta charset=\"UTF-8\">";
+  ptr += "<style>html{height:100vh;max-height:100vh;overflow:hidden;font-family:'Open Sans',sans-serif;display:block;margin:0 auto;text-align:center;color:#333}body{height:100%;max-height:100%;overflow:hidden}.wrap{display:flex;height:100%;flex-direction:column;justify-content:center}</style>";
+ 
   ptr +="<title>Температура: отчет</title>\n";
   ptr +="</head>\n";
   ptr +="<body>\n"; 
-  ptr +="<div>\n";
+  ptr +="<div class=\"wrap\">\n";
   ptr +="<h1>Фигня для удаленного мониторинга температуры</h1>\n";
   ptr += "<p><i>Мне было лень прикручивать ajax, поэтому нажми F5</i></p>";
   
-  ptr +="<p>Температура сейчас: ";
+  ptr +="<p><b>Температура сейчас:</b> ";
   ptr += (int)((float)temp / 100.0);
   ptr +=",";  
   ptr += (int)(temp % 100);
   ptr +=" °C</p>";
 
-  ptr +="<p>Максимальная температура: ";
+  ptr +="<p><b>Максимальная температура:</b> ";
   ptr += (int)((float)max_temp / 100.0);
   ptr +=",";  
   ptr += (int)(max_temp % 100);
