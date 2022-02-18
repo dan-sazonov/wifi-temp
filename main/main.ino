@@ -51,23 +51,19 @@ void handle_NotFound() {
 
 String SendHTML(float Temp)
 {
-  String ptr = "<!DOCTYPE html> <html>\n";
+  String ptr = "<!DOCTYPE html> <html lang=\"ru-RU\">\n";
   ptr +="<head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">\n";
-  ptr +="<title>ESP8266 Weather Report</title>\n";
-  ptr +="<style>html { font-family: Helvetica; display: inline-block; margin: 0px auto; text-align: center;}\n";
-  ptr +="body{margin-top: 50px;} h1 {color: #444444;margin: 50px auto 30px;}\n";
-  ptr +="p {font-size: 24px;color: #444444;margin-bottom: 10px;}\n";
-  ptr +="</style>\n";
+  ptr += "<meta charset=\"UTF-8\">";
+  ptr +="<title>Температура: отчет</title>\n";
   ptr +="</head>\n";
   ptr +="<body>\n";
-  ptr +="<div id=\"webpage\">\n";
-  ptr +="<h1>ESP8266 NodeMCU Weather Report</h1>\n";
+  ptr +="<div>\n";
+  ptr +="<h1>Фигня для удаленного мониторинга температуры</h1>\n";
+  ptr += "<p><i>Мне было лень прикручивать ajax, поэтому нажми F5</i></p>";
   
-  ptr +="<p>Temperature: ";
-  ptr +=(int)Temp;
-  ptr +="°C</p>";
-  ptr +="<p>Humidity: ";
-  ptr +="%</p>";
+  ptr +="<p>Температура сейчас: ";
+  ptr +=(int)(Temp*100);
+  ptr +="*10<sup>2</sup>C</p>";
   
   ptr +="</div>\n";
   ptr +="</body>\n";
