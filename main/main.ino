@@ -14,7 +14,7 @@ ESP8266WebServer server(80);
 
 DallasTemperature sensors(&oneWire);
 
-float temp;
+int temp;
 
 void setup() {
   Serial.begin(9600);
@@ -40,7 +40,7 @@ void setup() {
 void loop() {  
   // get the temp
   sensors.requestTemperatures();
-  temp = sensors.getTempCByIndex(0);
+  temp = sensors.getTempCByIndex(0) * 100;
   
   // update server
   server.handleClient();
@@ -67,8 +67,10 @@ String SendHTML() {
   ptr += "<p><i>Мне было лень прикручивать ajax, поэтому нажми F5</i></p>";
   
   ptr +="<p>Температура сейчас: ";
-  ptr +=(int)(temp*100);
-  ptr +="*10<sup>2</sup> °C</p>";
+  ptr += (int)((float)temp / 100.0);
+  ptr +=",";  
+  ptr += (int)(temp % 100);
+  ptr +=" °C</p>";
   
   ptr +="</div>\n";
   ptr +="</body>\n";
